@@ -17,7 +17,19 @@ VALUES
     '$2a$10$FB/BOAVhpuLvpOREQVmvmezD4ED/.JBIDRh70tGevYzYzQgFId2u.'
   );
 
-  INSERT INTO
+  INSERT INTO maps(
+    id,
+    owner_id,
+    title,
+    map_url
+)
+
+VALUES(1,2,'Best Trails','map link1'),
+(2,1,'Best bars','map link2'),
+(3,2,'Best lakes','map link3');
+
+
+INSERT INTO
   points (
   id,
   owner_id,
@@ -49,18 +61,9 @@ VALUES(1,1,1,'Toronto','trail 1','Nice enviornment','https://tse4.mm.bing.net/th
 (9,3,3,'Toronto','lake 3','Nice hotel is available','https://jooinn.com/images/mountain-lake-7.jpg',
 5,'100-$200');
 
-INSERT INTO maps(
-    id,
-    owner_id,
-    title,
-    map_url
-)
-
-VALUES(1,1,'Best Trails','map link1'),(2,2,'Best bars','map link2'),(3,2,'Best lakes','map link3');
-
 INSERT INTO favourited_maps(
     id,
     user_id,
     map_id
 )
-VALUES(1,1,1),(2,1,2),(3,2,1),(4,3,2),(4,3,3);
+VALUES(1,1,1),(2,1,2),(3,2,1),(4,3,2),(5,3,3);
