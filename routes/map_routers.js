@@ -3,9 +3,12 @@ const router  = express.Router();
 const mapQueries = require('../db/queries/maps');
 
 
-router.get('/maps', (req, res) => {
+router.get('/', (req, res) => {
     mapQueries.getMaps()
-    .then(maps => res.send({maps}))
+    .then(maps => {
+        let tempVars={maps}
+        res.render('maps',tempVars)
+    })
     .catch(err => {
         res.status(500).json({ error: err.message });
     }); 
