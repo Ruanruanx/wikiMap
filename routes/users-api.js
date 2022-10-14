@@ -21,12 +21,5 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/maps', (req, res) => {
-  userQueries.getMaps()
-  .then(map => res.send({maps}))
-  .catch(err => {
-    res.send(e)
-  }); 
-});
 
 module.exports = router;
