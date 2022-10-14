@@ -6,4 +6,13 @@ const getMaps = () => {
       return data.rows;
     });
 };
-module.exports = { getMaps };
+
+const getMapById = (id) => {
+  return db.query(`SELECT * FROM maps WHERE id = $1`,[id])
+  .then((data) => {
+    return data.rows[0];
+  });
+};
+
+
+module.exports = { getMaps, getMapById };

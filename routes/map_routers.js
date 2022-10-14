@@ -5,11 +5,17 @@ const mapQueries = require('../db/queries/maps');
 
 router.get('/maps', (req, res) => {
     mapQueries.getMaps()
-    .then(map => res.send({maps}))
+    .then(maps => res.send({maps}))
     .catch(err => {
-      res.send(e)
+        res.status(500).json({ error: err.message });
     }); 
   });
-  
+
+// router.get("/:map_id",(req, res)={
+//     mapQueries
+//     .getMapById()
+//     .then
+// })
+
   module.exports = router;
   
