@@ -8,17 +8,13 @@ router.get('/', (req, res) => {
     .then(maps => {
         let tempVars={maps}
         res.render('maps',tempVars)
+        //res.json(maps)
     })
     .catch(err => {
         res.status(500).json({ error: err.message });
     }); 
   });
 
-// router.get("/:map_id",(req, res)={
-//     mapQueries
-//     .getMapById()
-//     .then
-// })
 
   module.exports = router;
   

@@ -7,6 +7,10 @@
     <title>maps</title>
 </head>
 <body>
-    map
+    <% for( let map in maps) { %>
+        <%= maps[map].id %> 
+        <%= maps[map].title %> 
+        <%= maps[map].map_url %> 
+    <% } %> 
 </body>
 </html>
