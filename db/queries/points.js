@@ -8,7 +8,7 @@ const getPoints = () => {
 };
 
 const getPointsById = (id) => {
-  return db.query(`SELECT * FROM maps WHERE id = $1`,[id])
+  return db.query(`SELECT * FROM maps WHERE map_id = $1`,[id])
   .then((data) => {
     return data.rows[0];
   });

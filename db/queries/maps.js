@@ -8,9 +8,11 @@ const getMaps = () => {
 };
 
 const getMapById = (id) => {
-  return db.query(`SELECT * FROM maps WHERE id = $1`,[id])
+  return db.query(`SELECT maps.*,points.id,points.location,points.image_url FROM maps 
+  JOIN points on points.map_id=maps.id
+  WHERE maps.id = $1`,[id])
   .then((data) => {
-    return data.rows[0];
+    return data.rows;
   });
 };
 

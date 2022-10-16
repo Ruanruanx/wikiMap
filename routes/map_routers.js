@@ -1,7 +1,7 @@
 const express = require('express');
 const router  = express.Router();
 const mapQueries = require('../db/queries/maps');
-
+const pointQueries = require('../db/queries/points');
 
 router.get('/', (req, res) => {
     mapQueries.getMaps()
@@ -15,11 +15,12 @@ router.get('/', (req, res) => {
     }); 
   });
   router.get("/:id",(req,res)=>{
+    const tempVars={};
     mapQueries
     .getMapById(req.params.id)
     .then((map)=>{
-        let mapView={map}
-        res.render("map_show",mapView);
+        tempVars.map=map;
+        res.render("map_show",tempVars);
     })
     .catch((err)=>{
         res.status(500).json({error: err.message});

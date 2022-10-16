@@ -15,8 +15,14 @@
     <div class="card text-center">
       <div class="card-header"></div>
       <div class="card-body">
-        <h5 class="card-title"><%= map.title %> </h5>
-        <div><%= map.map_url %> </div>
+        <h5 class="card-title"><%= map[0].title %> </h5>
+        <div><%= map[0].map_url %> </div>
+        <div><% for( let point of map ) { %>
+            <div><%= point.location %> </div>
+            <div> <img src="<%= point.image_url %>"> </div>
+        <% } %></div>
+
+
       </div>
       <div class="card-footer text-muted"></div>
     </div>
