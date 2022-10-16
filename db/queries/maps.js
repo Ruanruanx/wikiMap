@@ -27,4 +27,14 @@ const removeMapById =(id) =>{
   })
 }
 
-module.exports = { getMaps, getMapById, removeMapById };
+const removePointById =(id) =>{
+  return db.query(
+    `DELETE FROM points
+    WHERE id = $1`,[id]
+  )
+  .then((data)=>{
+    return data.rows;
+  })
+}
+
+module.exports = { getMaps, getMapById, removeMapById,removePointById };

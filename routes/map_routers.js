@@ -33,10 +33,19 @@ router.get("/:id",(req,res)=>{
     });
   });
 
+//delete the whole map
 router.post("/:id/delete",(req,res)=>{
     mapQueries.removeMapById(req.params.id)
     .then(()=>{
         res.redirect('/maps');
+    })
+})
+
+//delete one point
+router.post("/:id/point/delete",(req,res)=>{
+    mapQueries.removePointById(req.params.id)
+    .then(()=>{
+        res.redirect('/maps/'+req.params.id);
     })
 })
 

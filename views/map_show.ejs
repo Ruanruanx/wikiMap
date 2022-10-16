@@ -23,7 +23,7 @@
             <div>Location: <%= point.location %> </div>
             <div>Description: <%= point.description %> </div>
             <div> <img src="<%= point.image_url %>"> </div>
-            <div><form method="POST" action="/maps/<%=point.id%>/delete">
+            <div><form method="POST" action="/maps/<%=point.id%>/point/delete">
                 <button type="submit" class="btn btn-primary">Delete</button>
                </form></div>
             <div><form method="POST" action="/maps/<%=point.id%>">
