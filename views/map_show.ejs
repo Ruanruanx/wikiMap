@@ -16,11 +16,14 @@
     <div class="card text-center">
       <div class="card-header"></div>
       <div class="card-body">
-        <h5 class="card-title"><%= map[0].title %> </h5>
-        <div><%= map[0].map_url %> </div>
+        <h5 class="card-title"><%= map[0].title %>  </h5>
+        <div><%= map[0].map_url %> (need to add mapbox here)</div>
         <div><% for( let point of map ) { %>
-            <div><%= point.location %> </div>
+            <div>User:<%= point.user %> </div>
+            <div>Location: <%= point.location %> </div>
+            <div>Description: <%= point.description %> </div>
             <div> <img src="<%= point.image_url %>"> </div>
+            
         <% } %></div>
 
 

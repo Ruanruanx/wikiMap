@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
     }); 
   });
 
-  router.get("/:id",(req,res)=>{
+router.get("/:id",(req,res)=>{
     const tempVars={};
     mapQueries
     .getMapById(req.params.id)
@@ -32,6 +32,7 @@ router.get('/', (req, res) => {
         res.status(500).json({error: err.message});
     });
   });
+
 
   module.exports = router;
   
