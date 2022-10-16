@@ -33,6 +33,12 @@ router.get("/:id",(req,res)=>{
     });
   });
 
+router.post("/:id/delete",(req,res)=>{
+    mapQueries.removeMapById(req.params.id)
+    .then(()=>{
+        res.redirect('/maps');
+    })
+})
 
   module.exports = router;
   
