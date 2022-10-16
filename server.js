@@ -38,6 +38,7 @@ const mapRoutes = require('./routes/map_routers');
 app.use('/api/users', userApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/maps', mapRoutes);
+app.use('/maps/:id',mapRoutes);
 // Note: mount other resources here, using the same pattern above
 
 // Home page

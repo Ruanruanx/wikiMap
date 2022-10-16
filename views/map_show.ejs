@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-
     <!-- Bootstrap CSS -->
     <link
       rel="stylesheet"
@@ -14,29 +8,18 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
-    <title>wikiMap</title>
+    <title>WikiMap</title>
   </head>
+
   <body>
-    <main style="margin: 1em;">
-      <h3>All maps</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Map</th>
-            <th scope="col">Map Link</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% for( let map in maps) { %>
-            <tr>
-                <td><%= maps[map].title %>  </td>
-                <td><%= maps[map].map_url %></td>
-            </tr>
-            
-        <% } %> 
-        </tbody>
-      </table>
-    </main>
+    <div class="card text-center">
+      <div class="card-header"></div>
+      <div class="card-body">
+        <h5 class="card-title"><%= map.title %> </h5>
+        <div><%= map.map_url %> </div>
+      </div>
+      <div class="card-footer text-muted"></div>
+    </div>
     <!-- Bootstrap JS -->
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
