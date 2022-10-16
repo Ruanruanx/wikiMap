@@ -1,19 +1,25 @@
 const express = require('express');
 const router  = express.Router();
 const mapQueries = require('../db/queries/maps');
-const pointQueries = require('../db/queries/points');
+const favQueries = require('../db/queries/favQuery');
 
 router.get('/', (req, res) => {
+    let tempVars={};
     mapQueries.getMaps()
     .then(maps => {
-        let tempVars={maps}
+        tempVars.maps=maps;
+        return favQueries.getFavByUser(1)
+    })
+    .then((fav)=>{
+        tempVars.fav=fav;
+        //res.json(tempVars.fav)
         res.render('maps',tempVars)
-        //res.json(maps)
     })
     .catch(err => {
         res.status(500).json({ error: err.message });
     }); 
   });
+
   router.get("/:id",(req,res)=>{
     const tempVars={};
     mapQueries

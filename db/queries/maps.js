@@ -1,7 +1,7 @@
 const db = require('../connection');
 
 const getMaps = () => {
-  return db.query('SELECT * FROM maps;')
+  return db.query('SELECT *, users.* FROM maps JOIN users ON users.id = maps.owner_id;')
     .then(data => {
       return data.rows;
     });
