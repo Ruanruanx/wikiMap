@@ -1,4 +1,6 @@
-// mapboxgl.accessToken = (Add access token here...)
+$(() => {
+
+mapboxgl.accessToken = 'pk.eyJ1IjoiaW1kb2RkcyIsImEiOiJjbDk2NnZnb2EwM3dqNDFwaDNscnI2Z2VrIn0.gp7ePy8_PpWIQzua7nvX_A';
 
 // Get user's location
 navigator.geolocation.getCurrentPosition(successLocation, errorLocation, { enableHighAccuracy: true });
@@ -11,7 +13,7 @@ function successLocation(position) {
 
 // Set default location to CN Tower
 function errorLocation() {
-  setupMap([-79.39, 43.64]);
+  setupMap([-79.3871, 43.6426]);
 }
 
 // Load map
@@ -31,7 +33,7 @@ function setupMap(center) {
         type: 'Feature',
         geometry: {
           type: 'Point',
-          coordinates: [-79.39, 43.64]
+          coordinates: [-79.3871, 43.6426]
         },
         properties: {
           title: 'CN Tower',
@@ -65,6 +67,9 @@ function setupMap(center) {
           `
         )
     )
-    .addTo(map);  };
+    .addTo(map);
+  };
 
 };
+
+})

@@ -12,18 +12,27 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.css' rel='stylesheet' />
 
-
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" />
   <link rel="stylesheet" href="/vendor/border-box.css" />
   <link rel="stylesheet" href="/styles/main.css" />
   <link rel="stylesheet" href="/styles/layout.css" />
 
   <script src="/vendor/jquery-3.0.0.js"></script>
-  <script defer src="/scripts/app.js"></script>
+  <script defer type="module" src="/scripts/app.js"></script>
 </head>
 
 <body>
-  <h1>wikiMaps</h1>
+
+  <header>
+    <h1 class="logo">MAPSTER</h1>
+    <nav>
+      <ul class="nav_links">
+        <li><a href="#">Profile</a></li>
+        <li><a href="#">Maps</a></li>
+      </ul>
+    </nav>
+    <a class="cta" href="#"><button>Create</button></a>
+  </header>
 
   <div id='map'></div>
 
