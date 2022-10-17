@@ -49,5 +49,35 @@ router.post("/:id/point/delete",(req,res)=>{
     })
 })
 
+//add a new map in /maps
+router.post("/",(req,res)=>{
+    const owner_id =1;
+    const title = req.body.title;
+    const map_url = "req.body.map_url";
+
+    mapQueries.newMap( 
+        owner_id,
+        title,
+        map_url)
+        .then((data)=>{res.send(data);})
+        .catch((err)=>{
+            res.status(500).json({ error: err.message });
+        })
+})
+
+//update map in /maps/:id
+router.post("/:id",(req,res)=>{
+    const title = req.body.title;
+    const map_url = req.body.map_url;
+
+    mapQueries.updateMap(title,map_url)
+    .then((data)=>{
+        res.status(200).send(data);
+    })
+    .catch((err)=>{
+        res.status(500).json({ error: err.message });
+    })
+})
+
   module.exports = router;
   
