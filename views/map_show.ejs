@@ -18,12 +18,10 @@
       <div class="card-body">
         <h5 class="card-title"><%= map[0].title %>  </h5>
         <div><%= map[0].map_url %> (need to add mapbox here)</div>
-        <div><form class="form-inline" method="POST" action="/maps">
-            <label for="name">Enter a place</label>
-            <input class="form-control" type="text" name="name">
-            <button type="submit" class="btn btn-primary">Add a new point</button>
-           </form>
-        </div>
+        <a href="/maps/point/new">        
+          <button type="submit" class="btn btn-primary">Add a new point</button>
+        </a>
+
         <div><% for( let point of map ) { %>
             <div>User:<%= point.user %> </div>
             <div>Location: <%= point.location %> </div>

@@ -20,6 +20,10 @@ router.get('/', (req, res) => {
     }); 
   });
 
+router.get("/point/new",(req,res)=>{
+    res.render("point_new");
+})
+
 router.get("/:id",(req,res)=>{
     const tempVars={};
     mapQueries
@@ -47,6 +51,8 @@ router.get("/edit/:id",(req,res)=>{
     
 })
 
+
+
 //delete the whole map
 router.post("/:id/delete",(req,res)=>{
     mapQueries.removeMapById(req.params.id)
@@ -60,36 +66,6 @@ router.post("/:id/point/delete",(req,res)=>{
     mapQueries.removePointById(req.params.id)
     .then(()=>{
         res.redirect('/maps/'+req.params.id);
-    })
-})
-
-//add a new map in /maps
-router.post("/",(req,res)=>{
-    const owner_id =1;
-    const title = req.body.title;
-    const map_url = "req.body.map_url";
-
-    mapQueries.newMap( 
-        owner_id,
-        title,
-        map_url)
-        .then((data)=>{res.send(data);})
-        .catch((err)=>{
-            res.status(500).json({ error: err.message });
-        })
-})
-
-//update map in /maps/:id
-router.post("/:id",(req,res)=>{
-    const title = req.body.title;
-    const map_url = req.body.map_url;
-
-    mapQueries.updateMap(title,map_url)
-    .then((data)=>{
-        res.status(200).send(data);
-    })
-    .catch((err)=>{
-        res.status(500).json({ error: err.message });
     })
 })
 
@@ -115,5 +91,30 @@ router.post("/edit/:id",(req,res)=>{
         })
 })
 
+//add point
+router.post("/:id",(req,res)=>{
+    const location= req.body.location;
+    const title= req.body.title;
+    const description= req.body.description;
+    const image_url= req.body.image_url;
+    const star_rating= req.body.star_rating;
+    const price_range= req.body.price_range;
+    const owner_id = req.body.owner_id;
+    const id=1;
+    const map_id=1;
+
+    mapQueries.newPoint(      
+        location,
+        title,
+        description,
+        image_url,
+        star_rating,
+        price_range,
+        owner_id)
+        .then((data)=>{res.send(data);})
+        .catch((err)=>{
+            res.status(500).json({ error: err.message });
+        })
+})
   module.exports = router;
   

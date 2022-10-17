@@ -88,9 +88,7 @@ const updateMap=(
 
 //add a new point
 const newPoint =(
-  id,
   owner_id,
-  map_id,
   location,
   title,
   description,
