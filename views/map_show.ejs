@@ -29,11 +29,15 @@
             <div>Location: <%= point.location %> </div>
             <div>Description: <%= point.description %> </div>
             <div> <img src="<%= point.image_url %>"> </div>
+            <form action="/maps/edit/<%= point.id %>" method="get">
+              <input type="SUBMIT" value="Edit">
+            </form>
             <div><form method="POST" action="/maps/<%=point.id%>/point/delete">
                 <button type="submit" class="btn btn-primary">Delete this point</button>
                </form></div>
 
-        <% } %></div>
+        <% } %>
+        </div>
       </div>
       <div class="card-footer text-muted"></div>
     </div>

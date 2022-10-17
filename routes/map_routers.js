@@ -33,6 +33,20 @@ router.get("/:id",(req,res)=>{
     });
   });
 
+router.get("/edit/:id",(req,res)=>{
+    let tempVars={};
+    mapQueries
+    .getPointById(req.params.id)
+    .then((point)=>{
+        tempVars=point;
+        res.render("edit",tempVars);
+    })
+    .catch((err)=>{
+        res.status(500).json({error: err.message});
+    });
+    
+})
+
 //delete the whole map
 router.post("/:id/delete",(req,res)=>{
     mapQueries.removeMapById(req.params.id)
@@ -77,6 +91,28 @@ router.post("/:id",(req,res)=>{
     .catch((err)=>{
         res.status(500).json({ error: err.message });
     })
+})
+
+//update point in "/maps/edit/:point_id"
+router.post("/edit/:id",(req,res)=>{
+    const location= req.body.location;
+    const title= req.body.title;
+    const description= req.body.description;
+    const image_url= req.body.image_url;
+    const star_rating= req.body.star_rating;
+    const price_range= req.body.price_range;
+
+    mapQueries.updatePoint(      
+        location,
+        title,
+        description,
+        image_url,
+        star_rating,
+        price_range)
+        .then((data)=>{res.send(data);})
+        .catch((err)=>{
+            res.status(500).json({ error: err.message });
+        })
 })
 
   module.exports = router;

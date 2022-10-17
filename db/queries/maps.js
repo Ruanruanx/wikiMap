@@ -17,6 +17,14 @@ const getMapById = (id) => {
   });
 };
 
+const getPointById = (id) => {
+  return db.query(`SELECT * FROM points
+  WHERE points.id = $1`,[id])
+  .then((data) => {
+    return data.rows[0];
+  });
+};
+
 const removeMapById =(id) =>{
   return db.query(
     `DELETE FROM maps
@@ -117,5 +125,44 @@ const newPoint =(
   });
 };
 
+//update point
+const updatePoint=( 
+  owner_id,
+  location,
+  title,
+  description,
+  image_url,
+  star_rating,
+  price_range) =>{
+    return db
+    .query(
+      `UPDATE points 
+      SET   location=$1,
+      title=$2,
+      description=$3,
+      image_url=$4,
+      star_rating=$5,
+      price_range=$6,
+      owner_id=$7`
+    ,[
+      location,
+      title,
+      description,
+      image_url,
+      star_rating,
+      price_range,
+      owner_id
+    ]
+    ).then((data)=>{
+      return data.rows[0];
+    });
+  };
 
-module.exports = { getMaps, getMapById, removeMapById,removePointById,newPoint,newMap,updateMap };
+module.exports = { getMaps, 
+  getMapById, 
+  removeMapById,
+  removePointById,
+  newPoint,newMap,
+  updateMap,
+updatePoint,
+getPointById };
