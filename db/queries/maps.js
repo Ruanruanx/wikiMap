@@ -47,18 +47,15 @@ const removePointById =(id) =>{
 
 //add a new map
 const newMap =( 
-  owner_id,
   title,
   map_url) =>{
     return db
     .query(
       `INSERT INTO maps(
-        owner_id
         title,
         map_url)
-        VALUES($1,$2,$3)`
+        VALUES($1,$2)`
     ,[
-      owner_id,
       title,
       map_url
     ]

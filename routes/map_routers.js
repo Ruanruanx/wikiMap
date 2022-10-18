@@ -24,6 +24,10 @@ router.get("/point/new/:map_id",(req,res)=>{
     res.render("point_new",{map_id:req.params.map_id});
 })
 
+router.get("/new",(req,res)=>{
+    res.render("maps_new");
+})
+
 router.get("/:id",(req,res)=>{
     const tempVars={};
     mapQueries
@@ -100,9 +104,7 @@ router.post("/new/:map_id",(req,res)=>{
     const price_range= req.body.price_range;
     const owner_id = req.body.owner_id;
     const map_id=req.params.map_id;
-    console.log("ok");
-    mapQueries.newPoint(  
-   
+    mapQueries.newPoint( 
         owner_id,
         map_id,
         location,
@@ -111,12 +113,29 @@ router.post("/new/:map_id",(req,res)=>{
         image_url,
         star_rating,
         price_range)
-        .then((data)=>{
+        .then(()=>{
         res.redirect('/maps/'+map_id)}
         )
         .catch((err)=>{
             res.status(500).json({ error: err.message });
         })
 })
+
+//add map
+router.post("/newmap",(req,res)=>{
+    const title= req.body.title;
+    const map_url= req.body.map_url;
+    mapQueries.newMap(
+        title,
+        map_url
+    ).then(()=>{
+        res.redirect('/maps')
+    })
+    .catch((err)=>{
+        res.status(500).json({ error: err.message });
+    })
+    
+})
+
   module.exports = router;
   
