@@ -39,6 +39,26 @@ app.use('/api/users', userApiRoutes);
 app.use('/api/widgets', widgetApiRoutes);
 app.use('/users', usersRoutes);
 // Note: mount other resources here, using the same pattern above
+app.get('/profile', (req, res) => {
+  res.render('profile');
+});
+
+app.post('/profile', (req, res) => {
+  res.render('/profile');
+});
+
+
+app.get('/create', (req, res) => {
+  res.render('create');
+});
+app.post('/create', (req, res) => {
+  res.render('create');
+});
+
+
+app.get('/logout', (req, res) => {
+  res.render('index');
+});
 
 // Home page
 // Warning: avoid creating more routes in this file!
