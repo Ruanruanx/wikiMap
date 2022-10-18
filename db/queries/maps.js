@@ -1,7 +1,10 @@
 const db = require('../connection');
 
 const getMaps = () => {
-  return db.query('SELECT maps.*, * FROM users JOIN maps ON maps.owner_id=users.id  ORDER BY maps.id;')
+  return db.query(`SELECT maps.*, * 
+  FROM users 
+  JOIN maps ON maps.owner_id=users.id  
+  ORDER BY maps.id;`)
     .then(data => {
       return data.rows;
     });
@@ -47,15 +50,17 @@ const removePointById =(id) =>{
 
 //add a new map
 const newMap =( 
+  owner_id,
   title,
   map_url) =>{
     return db
     .query(
       `INSERT INTO maps(
+        owner_id,
         title,
         map_url)
-        VALUES($1,$2)`
-    ,[
+        VALUES($1,$2,$3);`
+    ,[owner_id,
       title,
       map_url
     ]

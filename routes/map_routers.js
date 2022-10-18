@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
     })
     .then((fav)=>{
         tempVars.fav=fav;
+        console.log(tempVars);
         //res.json(tempVars.fav)
         res.render('maps',tempVars)
     })
@@ -126,6 +127,7 @@ router.post("/newmap",(req,res)=>{
     const title= req.body.title;
     const map_url= req.body.map_url;
     mapQueries.newMap(
+        1,
         title,
         map_url
     ).then(()=>{
