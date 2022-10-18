@@ -20,8 +20,8 @@ router.get('/', (req, res) => {
     }); 
   });
 
-router.get("/point/new",(req,res)=>{
-    res.render("point_new");
+router.get("/point/new/:map_id",(req,res)=>{
+    res.render("point_new",{map_id:req.params.map_id});
 })
 
 router.get("/:id",(req,res)=>{
@@ -50,8 +50,6 @@ router.get("/edit/:id",(req,res)=>{
     });
     
 })
-
-
 
 //delete the whole map
 router.post("/:id/delete",(req,res)=>{
@@ -85,14 +83,15 @@ router.post("/edit/:id",(req,res)=>{
         image_url,
         star_rating,
         price_range)
-        .then((data)=>{res.send(data);})
+        .then(()=>{
+            res.redirect('/maps/'+req.params.id);})
         .catch((err)=>{
             res.status(500).json({ error: err.message });
         })
 })
 
 //add point
-router.post("/:id",(req,res)=>{
+router.post("/new/:map_id",(req,res)=>{
     const location= req.body.location;
     const title= req.body.title;
     const description= req.body.description;
@@ -100,18 +99,21 @@ router.post("/:id",(req,res)=>{
     const star_rating= req.body.star_rating;
     const price_range= req.body.price_range;
     const owner_id = req.body.owner_id;
-    const id=1;
-    const map_id=1;
-
-    mapQueries.newPoint(      
+    const map_id=req.params.map_id;
+    console.log("ok");
+    mapQueries.newPoint(  
+   
+        owner_id,
+        map_id,
         location,
         title,
         description,
         image_url,
         star_rating,
-        price_range,
-        owner_id)
-        .then((data)=>{res.send(data);})
+        price_range)
+        .then((data)=>{
+        res.redirect('/maps/'+map_id)}
+        )
         .catch((err)=>{
             res.status(500).json({ error: err.message });
         })
