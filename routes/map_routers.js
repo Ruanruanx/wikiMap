@@ -1,3 +1,4 @@
+const express = require('express');
 const router  = express.Router();
 const mapQueries = require('../db/queries/maps');
 const favQueries = require('../db/queries/favQuery');
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({ error: err.message });
-    });
+    }); 
   });
 
 router.get('/points/:id', (req, res) => {
@@ -96,7 +97,7 @@ router.get("/edit/:id",(req,res)=>{
     .catch((err)=>{
         res.status(500).json({error: err.message});
     });
-
+    
 })
 
 //delete the whole map
@@ -126,8 +127,8 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
     const point_id = req.params.point_id;
     const owner_id =req.session.userId;
 
-    mapQueries.updatePoint(
-        owner_id,
+    mapQueries.updatePoint(   
+        owner_id,   
         location,
         title,
         description,
@@ -136,7 +137,7 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
         price_range,
         point_id)
         .then(()=>{
-
+            
             res.redirect('/maps/'+req.params.map_id);})
         .catch((err)=>{
             res.status(500).json({ error: err.message });
@@ -186,7 +187,8 @@ router.post("/newmap",(req,res)=>{
     .catch((err)=>{
         res.status(500).json({ error: err.message });
     })
-
+    
 })
 
   module.exports = router;
+  
