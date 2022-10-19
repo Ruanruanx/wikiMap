@@ -20,7 +20,7 @@
 <%- include('partials/_header')  %> 
 <body>
   <h1>Edit</h1>
-  <form class="form-inline" action="/maps/edit/<%=id %>" method="post">
+  <form class="form-inline" action="/maps/edit/<%=map_id %>/<%=id %> " method="post">
     <div class="form-group mb-2">
         <label for="location">Location: </label>
         <input type="text" name="location" value="<%= location %>">

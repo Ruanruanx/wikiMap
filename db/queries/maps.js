@@ -106,8 +106,8 @@ const newPoint =(
   star_rating,
   price_range
 ) =>{
-  console.log(image_url);
-  console.log(typeof image_url);
+  console.log(map_id);
+  console.log(typeof owner_id);
   return db.query(`
   INSERT INTO points(
     owner_id,
@@ -119,7 +119,6 @@ const newPoint =(
     star_rating,
     price_range) 
   VALUES($1,$2,$3,$4,$5,$6,$7,$8)
-  RETURNING *
   `,[
     owner_id,
     map_id,
@@ -142,19 +141,20 @@ const updatePoint=(
   description,
   image_url,
   star_rating,
-  price_range) =>{
+  price_range,
+  pointId) =>{
     return db
     .query(
       `UPDATE points 
       SET
-
-      owner_id=$7,
-      location=$1,
-      title=$2,
-      description=$3,
-      image_url=$4,
-      star_rating=$5,
-      price_range=$6
+      owner_id=$1,
+      location=$2,
+      title=$3,
+      description=$4,
+      image_url=$5,
+      star_rating=$6,
+      price_range=$7
+      WHERE id = $8;
       `
     ,[
       owner_id,
@@ -163,7 +163,8 @@ const updatePoint=(
       description,
       image_url,
       star_rating,
-      price_range      
+      price_range,
+      pointId      
     ]
     ).then((data)=>{
       return data.rows[0];
