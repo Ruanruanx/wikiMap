@@ -8,7 +8,7 @@ const getMaps = () => {
 };
 
 const getMapById = (id) => {
-  return db.query(`SELECT maps.*,points.id,points.location,points.image_url, points.description, points.map_id, users.name as user FROM maps 
+  return db.query(`SELECT maps.*,points.id,points.location,points.image_url, points.description, points.map_id, users.name as user FROM maps
   JOIN points on points.map_id=maps.id
   JOIN users on users.id=maps.owner_id
   WHERE maps.id = $1`,[id])
@@ -38,7 +38,7 @@ const removePointById =(id) =>{
 }
 
 //add a new map
-const newMap =( 
+const newMap =(
   owner_id,
   title,
   map_url) =>{
@@ -60,7 +60,7 @@ const newMap =(
   };
 
 //update an existing map
-const updateMap=( 
+const updateMap=(
   title,
   map_url) =>{
     return db
@@ -99,7 +99,7 @@ const newPoint =(
     description,
     image_url,
     star_rating,
-    price_range) 
+    price_range)
   VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
   RETURNING *
   `,[
@@ -117,5 +117,20 @@ const newPoint =(
   });
 };
 
+const getAllPoints = (map_id) => {
+  return db
+  .query(`
+  SELECT *
+  FROM points
+  WHERE map_id = $1
+  `, [map_id])
+  .then((result) => {
+    console.log(result.rows);
+    return result.rows;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+}
 
-module.exports = { getMaps, getMapById, removeMapById,removePointById,newPoint,newMap,updateMap };
+module.exports = { getMaps, getMapById, removeMapById,removePointById,newPoint,newMap,updateMap,getAllPoints };

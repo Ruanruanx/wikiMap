@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({ error: err.message });
-    }); 
+    });
   });
 
 router.get("/:id",(req,res)=>{
@@ -41,6 +41,13 @@ router.post("/:id/delete",(req,res)=>{
     })
 })
 
+router.get('/points/:id', (req, res) => {
+  mapQueries.getAllPoints(req.params.id)
+  .then((points) => {
+    res.json(points);
+  })
+})
+
 //delete one point
 router.post("/:id/point/delete",(req,res)=>{
     mapQueries.removePointById(req.params.id)
@@ -55,7 +62,7 @@ router.post("/",(req,res)=>{
     const title = req.body.title;
     const map_url = "req.body.map_url";
 
-    mapQueries.newMap( 
+    mapQueries.newMap(
         owner_id,
         title,
         map_url)
@@ -80,4 +87,3 @@ router.post("/:id",(req,res)=>{
 })
 
   module.exports = router;
-  
