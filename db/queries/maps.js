@@ -20,6 +20,13 @@ const getMapById = (id) => {
   });
 };
 
+const getMapByUserId =(id)=>{
+  return db.query(`SELECT * FROM maps WHERE owner_id=$1`,[id])
+  .then((data)=>{
+    return data.rows;
+  });
+}
+
 const getPointById = (id) => {
   return db.query(`SELECT * FROM points
   WHERE points.id = $1`,[id])
@@ -170,4 +177,5 @@ module.exports = { getMaps,
   newPoint,newMap,
   updateMap,
 updatePoint,
-getPointById };
+getPointById,
+getMapByUserId };

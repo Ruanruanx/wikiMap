@@ -5,14 +5,15 @@ const favQueries = require('../db/queries/favQuery');
 
 router.get('/', (req, res) => {
     let tempVars={};
-    mapQueries.getMaps()
+    const userId = req.session.userId;
+    mapQueries.getMapByUserId(userId)
     .then(maps => {
         tempVars.maps=maps;
-        return favQueries.getFavByUser(1)
+        console.log(maps);
+        return favQueries.getFavByUser(userId)
     })
     .then((fav)=>{
         tempVars.fav=fav;
-        console.log(tempVars);
         //res.json(tempVars.fav)
         res.render('maps',tempVars)
     })

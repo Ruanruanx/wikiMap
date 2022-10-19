@@ -5,6 +5,7 @@ require('dotenv').config();
 const sassMiddleware = require('./lib/sass-middleware');
 const express = require('express');
 const morgan = require('morgan');
+const cookieSession = require('cookie-session');
 
 const PORT = process.env.PORT || 8080;
 const app = express();
@@ -25,12 +26,18 @@ app.use(
   })
 );
 app.use(express.static('public'));
+app.use(cookieSession({
+  name: 'session',
+  keys: ['key1', 'key2']
+}))
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own
 const userApiRoutes = require('./routes/users-api');
 const usersRoutes = require('./routes/users');
 const mapRoutes = require('./routes/map_routers');
+const { Session } = require('inspector');
+const login = require('./routes/login');
 //const editRoute = require('./routes/map_routers');
 
 // Mount all resource routes
@@ -39,6 +46,7 @@ const mapRoutes = require('./routes/map_routers');
 app.use('/api/users', userApiRoutes);
 app.use('/users', usersRoutes);
 app.use('/maps', mapRoutes);
+app.use('/login',login);
 //app.use('/edit/:id', editRoute);
 //app.use('/maps/:id',mapRoutes);
 // Note: mount other resources here, using the same pattern above
@@ -48,6 +56,7 @@ app.use('/maps', mapRoutes);
 // Separate them into separate routes files (see above).
 
 app.get('/', (req, res) => {
+  console.log(req.session['userId'])
   res.render('index');
 });
 
