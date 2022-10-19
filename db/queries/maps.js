@@ -17,6 +17,37 @@ const getMapById = (id) => {
   });
 };
 
+const getAllPoints = (map_id) => {
+  return db
+  .query(`
+  SELECT *
+  FROM points
+  WHERE map_id = $1
+  `, [map_id])
+  .then((result) => {
+    console.log(result.rows);
+    return result.rows;
+  })
+  .catch((err) => {
+    console.log(err.message);
+  });
+};
+
+const getMapByUserId =(id)=>{
+  return db.query(`SELECT * FROM maps WHERE owner_id=$1`,[id])
+  .then((data)=>{
+    return data.rows;
+  });
+}
+
+const getPointById = (id) => {
+  return db.query(`SELECT * FROM points
+  WHERE points.id = $1`,[id])
+  .then((data) => {
+    return data.rows[0];
+  });
+};
+
 const removeMapById =(id) =>{
   return db.query(
     `DELETE FROM maps
@@ -38,19 +69,18 @@ const removePointById =(id) =>{
 }
 
 //add a new map
-const newMap =(
+const newMap =( 
   owner_id,
   title,
   map_url) =>{
     return db
     .query(
       `INSERT INTO maps(
-        owner_id
+        owner_id,
         title,
         map_url)
-        VALUES($1,$2,$3)`
-    ,[
-      owner_id,
+        VALUES($1,$2,$3);`
+    ,[owner_id,
       title,
       map_url
     ]
@@ -60,7 +90,7 @@ const newMap =(
   };
 
 //update an existing map
-const updateMap=(
+const updateMap=( 
   title,
   map_url) =>{
     return db
@@ -80,7 +110,6 @@ const updateMap=(
 
 //add a new point
 const newPoint =(
-  id,
   owner_id,
   map_id,
   location,
@@ -90,8 +119,10 @@ const newPoint =(
   star_rating,
   price_range
 ) =>{
+  console.log(map_id);
+  console.log(typeof owner_id);
   return db.query(`
-  INSERT INTO points(  id,
+  INSERT INTO points(
     owner_id,
     map_id,
     location,
@@ -99,11 +130,9 @@ const newPoint =(
     description,
     image_url,
     star_rating,
-    price_range)
-  VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
-  RETURNING *
+    price_range) 
+  VALUES($1,$2,$3,$4,$5,$6,$7,$8)
   `,[
-    id,
     owner_id,
     map_id,
     location,
@@ -117,20 +146,50 @@ const newPoint =(
   });
 };
 
-const getAllPoints = (map_id) => {
-  return db
-  .query(`
-  SELECT *
-  FROM points
-  WHERE map_id = $1
-  `, [map_id])
-  .then((result) => {
-    console.log(result.rows);
-    return result.rows;
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
-}
+//update point
+const updatePoint=( 
+  owner_id,
+  location,
+  title,
+  description,
+  image_url,
+  star_rating,
+  price_range,
+  pointId) =>{
+    return db
+    .query(
+      `UPDATE points 
+      SET
+      owner_id=$1,
+      location=$2,
+      title=$3,
+      description=$4,
+      image_url=$5,
+      star_rating=$6,
+      price_range=$7
+      WHERE id = $8;
+      `
+    ,[
+      owner_id,
+      location,
+      title,
+      description,
+      image_url,
+      star_rating,
+      price_range,
+      pointId      
+    ]
+    ).then((data)=>{
+      return data.rows[0];
+    });
+  };
 
-module.exports = { getMaps, getMapById, removeMapById,removePointById,newPoint,newMap,updateMap,getAllPoints };
+module.exports = { getMaps, 
+  getMapById, 
+  removeMapById,
+  removePointById,
+  newPoint,newMap,
+  updateMap,
+updatePoint,
+getPointById,
+getMapByUserId, getAllPoints };
