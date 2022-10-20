@@ -31,10 +31,10 @@
           <%= map[0].title %>
         </h5>
         <div>
-          <%= map[0].map_url %> (need to add mapbox here)
+          <%= map[0].map_url %> 
         </div>
         <div id='map'></div>
-        <a href="/maps/point/new/<%=map[0].map_id %>">        
+        <a href="/maps/point/new/<%=map_id %>">        
           <button type="submit" class="btn btn-primary">Add a new point</button>
         </a>
         <div>
@@ -48,7 +48,7 @@
               <input type="SUBMIT" value="Edit">
             </form>
             <div>
-              <form method="POST" action="/maps/<%=point.id%>/point/delete">
+              <form method="POST" action="/maps/<%=point.map_id%> /<%=point.id%>/delete">
                 <button type="submit" class="btn btn-primary">Delete this point</button>
               </form>
             </div>

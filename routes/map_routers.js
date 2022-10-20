@@ -75,12 +75,12 @@ router.get("/new",(req,res)=>{
 //get map by id
 router.get("/:id",(req,res)=>{
     const tempVars={};
-    console.log('get request',req.params.id);
     mapQueries
     .getMapById(req.params.id)
     .then((map)=>{
+        console.log('get request',map);
         tempVars.map=map;
-        console.log('temp',tempVars)
+        tempVars.map_id=req.params.id;
         res.render("map_show",tempVars);
     })
     .catch((err)=>{
@@ -112,10 +112,10 @@ router.post("/:id/delete",(req,res)=>{
 })
 
 //delete one point
-router.post("/:id/point/delete",(req,res)=>{
-    mapQueries.removePointById(req.params.id)
+router.post("/:map_id/:point_id/delete",(req,res)=>{
+    mapQueries.removePointById(req.params.point_id)
     .then(()=>{
-        res.redirect('/maps/'+req.params.id);
+        res.redirect('/maps/'+req.params.map_id);
     })
 })
 
@@ -141,8 +141,7 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
         star_rating,
         price_range,
         point_id)
-        .then(()=>{
-            
+        .then(()=>{          
             res.redirect('/maps/'+req.params.map_id);})
         .catch((err)=>{
             res.status(500).json({ error: err.message });
