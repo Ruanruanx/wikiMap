@@ -22,8 +22,10 @@
   <h1>Edit</h1>
   <form class="form-inline" action="/maps/edit/<%=map_id %>/<%=id %> " method="post">
     <div class="form-group mb-2">
-        <label for="location">Location: </label>
-        <input type="text" name="location" value="<%= location %>">
+        <label for="lat">Latitude: </label>
+        <input type="text" name="lat" value="<%= lat %>">
+        <label for="longt">Longtitude: </label>
+        <input type="text" name="longt" value="<%= longt %>">
         <label for="title">Title: </label>
         <input type="text" name="title" value="<%= title %>">
         <label for="description">description: </label>
@@ -34,8 +36,6 @@
         <input type="text" name="star_rating" value="<%= star_rating %>">
         <label for="price_range">price_range: </label>
         <input type="text" name="price_range" value="<%= price_range %>">
-        <label for="owner_id">owner_id: </label>
-        <input type="text" name="owner_id" value="<%= owner_id %>">
         <button type="submit" class="btn btn-primary"> Submit</button>
     </div>
   </form>

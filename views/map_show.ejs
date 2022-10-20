@@ -34,15 +34,9 @@
           <%= map[0].map_url %> (need to add mapbox here)
         </div>
         <div id='map'></div>
-        <button id="button">test</button>
-        <div>
-          <form class="form-inline" method="POST" action="/maps">
-            <label for="name">Enter a place</label>
-            <input class="form-control" type="text" name="name">
-            <button type="submit" class="btn btn-primary">Add a new point</button>
-
-          </form>
-        </div>
+        <a href="/maps/point/new/<%=map[0].map_id %>">        
+          <button type="submit" class="btn btn-primary">Add a new point</button>
+        </a>
         <div>
           <% for( let point of map ) { %>
             <div>User:<%= point.user %>
@@ -50,6 +44,9 @@
             <div>Description: <%= point.description %>
             </div>
             <div> <img src="<%= point.image_url %>"> </div>
+            <form action="/maps/edit/<%= point.id %>" method="get">
+              <input type="SUBMIT" value="Edit">
+            </form>
             <div>
               <form method="POST" action="/maps/<%=point.id%>/point/delete">
                 <button type="submit" class="btn btn-primary">Delete this point</button>

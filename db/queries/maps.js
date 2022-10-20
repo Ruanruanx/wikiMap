@@ -8,9 +8,10 @@ const getMaps = () => {
 };
 
 const getMapById = (id) => {
+  //maps need to join points
   return db.query(`SELECT maps.*,points.id,points.longt,points.lat,points.image_url, points.description, points.map_id, users.name as user FROM maps
-  JOIN points on points.map_id=maps.id
-  JOIN users on users.id=maps.owner_id
+  FULL JOIN points on points.map_id=maps.id
+  FULL JOIN users on users.id=maps.owner_id
   WHERE maps.id = $1`,[id])
   .then((data) => {
     return data.rows;
@@ -112,7 +113,8 @@ const updateMap=(
 const newPoint =(
   owner_id,
   map_id,
-  location,
+  lat,
+  longt,
   title,
   description,
   image_url,
@@ -125,17 +127,19 @@ const newPoint =(
   INSERT INTO points(
     owner_id,
     map_id,
-    location,
+    lat,
+    longt,
     title,
     description,
     image_url,
     star_rating,
     price_range) 
-  VALUES($1,$2,$3,$4,$5,$6,$7,$8)
+  VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9)
   `,[
     owner_id,
     map_id,
-    location,
+    lat,
+    longt,
     title,
     description,
     image_url,
@@ -149,7 +153,8 @@ const newPoint =(
 //update point
 const updatePoint=( 
   owner_id,
-  location,
+  lat,
+  longt,
   title,
   description,
   image_url,
@@ -161,17 +166,19 @@ const updatePoint=(
       `UPDATE points 
       SET
       owner_id=$1,
-      location=$2,
-      title=$3,
-      description=$4,
-      image_url=$5,
-      star_rating=$6,
-      price_range=$7
-      WHERE id = $8;
+      lat=$2,
+      longt=$3
+      title=$4,
+      description=$5,
+      image_url=$6,
+      star_rating=$7,
+      price_range=$8,
+      WHERE id = $9;
       `
     ,[
       owner_id,
-      location,
+      lat,
+      longt,
       title,
       description,
       image_url,

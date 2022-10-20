@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
     mapQueries.getMapByUserId(userId)
     .then(maps => {
         tempVars.maps=maps;
-        console.log(maps);
         return favQueries.getFavByUser(userId)
     })
     .then((fav)=>{
@@ -22,9 +21,6 @@ router.get('/', (req, res) => {
         res.status(500).json({ error: err.message });
     }); 
   });
-
- 
-
 
 router.get('/points/:id',(req,res)=>{
     mapQueries.getAllPoints(req.params.id)
@@ -50,22 +46,6 @@ router.get('/points/:id',(req,res)=>{
         }
     res.send(geojson);
     })
-})
-
-//add a new map in /maps
-router.post("/",(req,res)=>{
-    const owner_id =1;
-    const title = req.body.title;
-    const map_url = "req.body.map_url";
-
-    mapQueries.newMap(
-        owner_id,
-        title,
-        map_url)
-        .then((data)=>{res.send(data);})
-        .catch((err)=>{
-            res.status(500).json({ error: err.message });
-        })
 })
 
 //update map in /maps/:id
@@ -95,6 +75,7 @@ router.get("/new",(req,res)=>{
 //get map by id
 router.get("/:id",(req,res)=>{
     const tempVars={};
+    console.log('get request',req.params.id);
     mapQueries
     .getMapById(req.params.id)
     .then((map)=>{
@@ -140,8 +121,8 @@ router.post("/:id/point/delete",(req,res)=>{
 
 //update point in "/maps/edit/:point_id"
 router.post("/edit/:map_id/:point_id",(req,res)=>{
-    const lat= req.body.longt;
-    const longt=req.body.lat;
+    const lat= req.body.lat;
+    const longt=req.body.longt;
     const title= req.body.title;
     const description= req.body.description;
     const image_url= req.body.image_url;
@@ -170,7 +151,8 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
 
 //add point to map_id
 router.post("/new/:map_id",(req,res)=>{
-    const location= req.body.location;
+    const lat= req.body.lat;
+    const longt = req.body.longt;
     const title= req.body.title;
     const description= req.body.description;
     const image_url= req.body.image_url;
@@ -182,7 +164,8 @@ router.post("/new/:map_id",(req,res)=>{
     mapQueries.newPoint(
         owner_id,
         map_id,
-        location,
+        lat,
+        longt,
         title,
         description,
         image_url,
@@ -197,10 +180,11 @@ router.post("/new/:map_id",(req,res)=>{
 })
 
 //add map
-router.post("/newmap",(req,res)=>{
+router.post("/",(req,res)=>{
     const title= req.body.title;
     const map_url= req.body.map_url;
     const userId = req.session.userId;
+    console.log('post route')
     mapQueries.newMap(
         userId,
         title,
