@@ -1,5 +1,3 @@
-
-
 $( document ).ready(function() {
 
   // Mapbox Access Token
@@ -10,7 +8,7 @@ $( document ).ready(function() {
 
   // Set map to user's location
   function successLocation(position) {
-    console.log(position);
+    // console.log(position);
     setupMap([position.coords.longitude, position.coords.latitude])
   }
 
