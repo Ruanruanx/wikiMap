@@ -23,11 +23,33 @@ router.get('/', (req, res) => {
     }); 
   });
 
-router.get('/points/:id', (req, res) => {
-  mapQueries.getAllPoints(req.params.id)
-  .then((points) => {
-    res.json(points);
-  })
+ 
+
+
+router.get('/points/:id',(req,res)=>{
+    mapQueries.getAllPoints(req.params.id)
+    .then((points)=>{
+        console.log('points',points);
+        const geojson = {
+            type: 'FeatureCollection',
+            features: []
+          };
+        for(const item of points){
+            geojson.features.push({
+                type:'Feature',
+                geometry:{
+                    type:'Point',
+                    coordinates: [item.lat,item.longt]
+                },
+                properties: {
+                title: item.title,
+                description: item.description,
+                image_url: item.image_url
+                }
+            })
+        }
+    res.send(geojson);
+    })
 })
 
 //add a new map in /maps
@@ -77,7 +99,7 @@ router.get("/:id",(req,res)=>{
     .getMapById(req.params.id)
     .then((map)=>{
         tempVars.map=map;
-        console.log('map',map);
+        console.log('temp',tempVars)
         res.render("map_show",tempVars);
     })
     .catch((err)=>{
@@ -118,7 +140,8 @@ router.post("/:id/point/delete",(req,res)=>{
 
 //update point in "/maps/edit/:point_id"
 router.post("/edit/:map_id/:point_id",(req,res)=>{
-    const location= req.body.location;
+    const lat= req.body.longt;
+    const longt=req.body.lat;
     const title= req.body.title;
     const description= req.body.description;
     const image_url= req.body.image_url;
@@ -129,7 +152,8 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
 
     mapQueries.updatePoint(   
         owner_id,   
-        location,
+        lat,
+        longt,
         title,
         description,
         image_url,
@@ -191,4 +215,3 @@ router.post("/newmap",(req,res)=>{
 })
 
   module.exports = router;
-  

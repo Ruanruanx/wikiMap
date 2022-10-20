@@ -8,7 +8,7 @@ const getMaps = () => {
 };
 
 const getMapById = (id) => {
-  return db.query(`SELECT maps.*,points.id,points.location,points.image_url, points.description, points.map_id, users.name as user FROM maps
+  return db.query(`SELECT maps.*,points.id,points.longt,points.lat,points.image_url, points.description, points.map_id, users.name as user FROM maps
   JOIN points on points.map_id=maps.id
   JOIN users on users.id=maps.owner_id
   WHERE maps.id = $1`,[id])

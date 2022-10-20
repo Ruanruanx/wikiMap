@@ -41,8 +41,7 @@ app.use(cookieSession({
 const userApiRoutes = require('./routes/users-api');
 const usersRoutes = require('./routes/users');
 const mapRoutes = require('./routes/map_routers');
-
-const { Session } = require('inspector');
+//const { Session } = require('inspector');
 const login = require('./routes/login');
 //const editRoute = require('./routes/map_routers');
 
