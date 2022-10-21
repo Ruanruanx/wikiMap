@@ -198,4 +198,20 @@ router.post("/",(req,res)=>{
 
 })
 
+//add map to favourites
+router.post("/fav/:map_id", (req, res) => {
+  const user_id = req.session.userId;
+  console.log(req.session);
+  const map_id = req.params.map_id;
+  favQueries.addToFavourites(
+    user_id,
+    map_id
+  ).then(() => {
+    res.redirect("/maps")
+  })
+  .catch((err) => {
+    res.status(500).json({ error: err.message });
+  })
+})
+
   module.exports = router;

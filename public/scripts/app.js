@@ -73,7 +73,7 @@ $( document ).ready(function() {
         }
       ]
     };
-console.log('CN',CN);
+// console.log('CN',CN);
 
     // Navigation controls
     const nav = new mapboxgl.NavigationControl();
@@ -103,7 +103,7 @@ console.log('CN',CN);
         .addTo(map);
     };
     }
-  
+
 
   };
 
