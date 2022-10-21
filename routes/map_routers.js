@@ -16,6 +16,7 @@ router.get('/', (req, res) => {
     })
     .then((fav)=>{
         tempVars.fav=fav;
+        tempVars.userId=userId;
         //res.json(tempVars.fav)
         res.render('maps',tempVars)
     })
@@ -70,14 +71,16 @@ router.post("/:id",(req,res)=>{
 
 //add new point
 router.get("/point/new/:map_id",(req,res)=>{
-    res.render("point_new",{map_id:req.params.map_id});
+    const userId = req.session.userId;
+
+    res.render("point_new",{map_id:req.params.map_id,userId});
 })
 
 //add new map
 router.get("/new",(req,res)=>{
     const userId = req.session.userId;
     if(userId){
-        res.render("maps_new");
+        res.render("maps_new",{userId});
     }else{
         res.redirect('/');
     }
@@ -94,6 +97,7 @@ router.get("/:id",(req,res)=>{
         console.log('get request',map);
         tempVars.map=map;
         tempVars.map_id=req.params.id;
+        tempVars.userId=req.session.userId;
         res.render("map_show",tempVars);
     })
     .catch((err)=>{
@@ -104,10 +108,12 @@ router.get("/:id",(req,res)=>{
 //edit a point
 router.get("/edit/:id",(req,res)=>{
     let tempVars={};
+    const userId = req.session.userId;
     mapQueries
     .getPointById(req.params.id)
     .then((point)=>{
-        tempVars=point;
+        tempVars.point=point;
+        tempVars.userId=userId;
         res.render("edit",tempVars);
     })
     .catch((err)=>{

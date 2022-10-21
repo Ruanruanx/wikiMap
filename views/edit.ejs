@@ -19,22 +19,22 @@
 <%- include('partials/_header')  %> 
 <body>
   <h1>Edit</h1>
-  <form class="form-inline" action="/maps/edit/<%=map_id %>/<%=id %> " method="post">
+  <form class="form-inline" action="/maps/edit/<%=point.map_id %>/<%=point.id %> " method="post">
     <div class="form-group mb-2">
         <label for="lat">Latitude: </label>
-        <input type="text" name="lat" value="<%= lat %>">
+        <input type="text" name="lat" value="<%= point.lat %>">
         <label for="longt">Longtitude: </label>
-        <input type="text" name="longt" value="<%= longt %>">
+        <input type="text" name="longt" value="<%= point.longt %>">
         <label for="title">Title: </label>
-        <input type="text" name="title" value="<%= title %>">
+        <input type="text" name="title" value="<%= point.title %>">
         <label for="description">description: </label>
-        <input type="text" name="description" value="<%= description %>">
+        <input type="text" name="description" value="<%= point.description %>">
         <label for="image_url">image_url: </label>
-        <input type="text" name="image_url" value="<%= image_url %>">
+        <input type="text" name="image_url" value="<%= point.image_url %>">
         <label for="star_rating">star_rating: </label>
-        <input type="text" name="star_rating" value="<%= star_rating %>">
+        <input type="text" name="star_rating" value="<%= point.star_rating %>">
         <label for="price_range">price_range: </label>
-        <input type="text" name="price_range" value="<%= price_range %>">
+        <input type="text" name="price_range" value="<%= point.price_range %>">
         <button type="submit" class="btn btn-primary"> Submit</button>
     </div>
   </form>

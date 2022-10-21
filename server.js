@@ -69,9 +69,11 @@ app.use('/login',login);
 
 app.get('/', (req, res) => {
   let tempVars={};
+  const userId = req.session.userId;
   mapQueries.getMaps()
   .then(maps=>{
     tempVars.maps=maps;
+    tempVars.userId=userId;
     res.render('index', tempVars);
   })
   // console.log(req.session['userId'])
