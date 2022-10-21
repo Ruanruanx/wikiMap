@@ -7,7 +7,9 @@ const favQueries = require('../db/queries/favQuery');
 router.get('/', (req, res) => {
     let tempVars={};
     const userId = req.session.userId;
-    mapQueries.getMapByUserId(userId)
+    if(userId){
+        console.log('user',userId);
+      mapQueries.getMapByUserId(userId)
     .then(maps => {
         tempVars.maps=maps;
         return favQueries.getFavByUser(userId)
@@ -19,7 +21,11 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({ error: err.message });
-    });
+    });   
+    } else {
+        res.redirect('/');
+    }
+    
   });
 
 router.get('/points/:id',(req,res)=>{
@@ -69,18 +75,25 @@ router.get("/point/new/:map_id",(req,res)=>{
 
 //add new map
 router.get("/new",(req,res)=>{
-    res.render("maps_new");
+    const userId = req.session.userId;
+    if(userId){
+        res.render("maps_new");
+    }else{
+        res.redirect('/');
+    }
+    
 })
 
 //get map by id
 router.get("/:id",(req,res)=>{
     const tempVars={};
-    console.log('get request',req.params.id);
+
     mapQueries
     .getMapById(req.params.id)
     .then((map)=>{
+        console.log('get request',map);
         tempVars.map=map;
-        console.log('temp',tempVars)
+        tempVars.map_id=req.params.id;
         res.render("map_show",tempVars);
     })
     .catch((err)=>{
@@ -100,7 +113,7 @@ router.get("/edit/:id",(req,res)=>{
     .catch((err)=>{
         res.status(500).json({error: err.message});
     });
-
+    
 })
 
 //delete the whole map
@@ -111,11 +124,12 @@ router.post("/:id/delete",(req,res)=>{
     })
 })
 
+
 //delete one point
-router.post("/:id/point/delete",(req,res)=>{
-    mapQueries.removePointById(req.params.id)
+router.post("/:map_id/:point_id/delete",(req,res)=>{
+    mapQueries.removePointById(req.params.point_id)
     .then(()=>{
-        res.redirect('/maps/'+req.params.id);
+        res.redirect('/maps/'+req.params.map_id);
     })
 })
 
@@ -131,8 +145,8 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
     const point_id = req.params.point_id;
     const owner_id =req.session.userId;
 
-    mapQueries.updatePoint(
-        owner_id,
+    mapQueries.updatePoint(   
+        owner_id,   
         lat,
         longt,
         title,
@@ -141,8 +155,7 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
         star_rating,
         price_range,
         point_id)
-        .then(()=>{
-
+        .then(()=>{          
             res.redirect('/maps/'+req.params.map_id);})
         .catch((err)=>{
             res.status(500).json({ error: err.message });
@@ -195,23 +208,23 @@ router.post("/",(req,res)=>{
     .catch((err)=>{
         res.status(500).json({ error: err.message });
     })
-
+    
 })
 
 //add map to favourites
 router.post("/fav/:map_id", (req, res) => {
-  const user_id = req.session.userId;
-  console.log(req.session);
-  const map_id = req.params.map_id;
-  favQueries.addToFavourites(
-    user_id,
-    map_id
-  ).then(() => {
-    res.redirect("/maps")
+    const user_id = req.session.userId;
+    console.log(req.session);
+    const map_id = req.params.map_id;
+    favQueries.addToFavourites(
+      user_id,
+      map_id
+    ).then(() => {
+      res.redirect("/maps")
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    })
   })
-  .catch((err) => {
-    res.status(500).json({ error: err.message });
-  })
-})
 
   module.exports = router;

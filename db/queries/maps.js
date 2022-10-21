@@ -14,6 +14,7 @@ const getMapById = (id) => {
   FULL JOIN users on users.id=maps.owner_id
   WHERE maps.id = $1`,[id])
   .then((data) => {
+    console.log(data.rows);
     return data.rows;
   });
 };
@@ -24,6 +25,7 @@ const getAllPoints = (map_id) => {
   SELECT *
   FROM points
   WHERE map_id = $1
+  ORDER BY id;
   `, [map_id])
   .then((result) => {
     console.log(result.rows);
@@ -121,8 +123,7 @@ const newPoint =(
   star_rating,
   price_range
 ) =>{
-  console.log(map_id);
-  console.log(typeof owner_id);
+  console.log('map',map_id);
   return db.query(`
   INSERT INTO points(
     owner_id,
@@ -167,12 +168,12 @@ const updatePoint=(
       SET
       owner_id=$1,
       lat=$2,
-      longt=$3
+      longt=$3,
       title=$4,
       description=$5,
       image_url=$6,
       star_rating=$7,
-      price_range=$8,
+      price_range=$8
       WHERE id = $9;
       `
     ,[
