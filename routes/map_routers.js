@@ -111,6 +111,7 @@ router.post("/:id/delete",(req,res)=>{
     })
 })
 
+
 //delete one point
 router.post("/:map_id/:point_id/delete",(req,res)=>{
     mapQueries.removePointById(req.params.point_id)

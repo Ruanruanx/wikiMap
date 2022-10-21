@@ -26,6 +26,7 @@
             <th scope="col">Map</th>
             <th scope="col">Map Link</th>
             <th scope="col">View</th>
+            <th scope="col">Delete</th>
           </tr>
         </thead>
 
@@ -35,7 +36,11 @@
                 <td><%= maps[map].title %>  </td>
                 <td><a href=""><%= maps[map].map_url %></a> </td>
                 <td><a href="/maps/<%= maps[map].id %>">view</a></td>
-                <td><a href="/maps/<%= maps[map].id %>/delete">Delete</a></td>
+                <td>
+                  <form method="POST" action="/maps/<%= maps[map].id %>/delete">
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                  </form>
+                </td>
             </tr>
 
         <% } %>
