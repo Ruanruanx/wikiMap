@@ -25,6 +25,7 @@ const getAllPoints = (map_id) => {
   SELECT *
   FROM points
   WHERE map_id = $1
+  ORDER BY id;
   `, [map_id])
   .then((result) => {
     console.log(result.rows);
