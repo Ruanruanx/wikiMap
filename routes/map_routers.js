@@ -7,7 +7,9 @@ const favQueries = require('../db/queries/favQuery');
 router.get('/', (req, res) => {
     let tempVars={};
     const userId = req.session.userId;
-    mapQueries.getMapByUserId(userId)
+    if(userId){
+        console.log('user',userId);
+      mapQueries.getMapByUserId(userId)
     .then(maps => {
         tempVars.maps=maps;
         return favQueries.getFavByUser(userId)
@@ -19,7 +21,11 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({ error: err.message });
-    }); 
+    });   
+    } else {
+        res.redirect('/');
+    }
+    
   });
 
 router.get('/points/:id',(req,res)=>{
@@ -69,12 +75,19 @@ router.get("/point/new/:map_id",(req,res)=>{
 
 //add new map
 router.get("/new",(req,res)=>{
-    res.render("maps_new");
+    const userId = req.session.userId;
+    if(userId){
+        res.render("maps_new");
+    }else{
+        res.redirect('/');
+    }
+    
 })
 
 //get map by id
 router.get("/:id",(req,res)=>{
     const tempVars={};
+
     mapQueries
     .getMapById(req.params.id)
     .then((map)=>{
