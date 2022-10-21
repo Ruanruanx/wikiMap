@@ -1,6 +1,8 @@
 
 // load .env data into process.env
 require('dotenv').config();
+const mapQueries = require('./db/queries/maps');
+
 
 // Web server config
 const sassMiddleware = require('./lib/sass-middleware');
@@ -66,39 +68,15 @@ app.use('/login',login);
 
 
 app.get('/', (req, res) => {
-  console.log(req.session['userId'])
-  res.render('index');
+  let tempVars={};
+  mapQueries.getMaps()
+  .then(maps=>{
+    tempVars.maps=maps;
+    res.render('index', tempVars);
+  })
+  // console.log(req.session['userId'])
+  // res.render('index');
 });
-
-// //////
-
-
-// app.get('/create_maps', (req, res) => {
-//   res.render('create_maps');
-// });
-
-// app.get('/profile', (req, res) => {
-//   res.render('profile');
-// });
-
-// app.post('/profile', (req, res) => {
-//   res.render('/profile');
-// });
-
-
-// app.get('/create', (req, res) => {
-//   res.render('create');
-// });
-// app.post('/create', (req, res) => {
-//   res.render('create');
-// });
-
-
-// //////
-
-
-
-
 
 app.get("/create", (req, res) => {
   res.render("create");
