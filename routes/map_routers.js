@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
     const userId = req.session.userId;
     mapQueries.getMapByUserId(userId)
     .then(maps => {
+      console.log("maps:", maps);
         tempVars.maps=maps;
         return favQueries.getFavByUser(userId)
     })
@@ -19,7 +20,7 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
         res.status(500).json({ error: err.message });
-    }); 
+    });
   });
 
 router.get('/points/:id',(req,res)=>{
@@ -100,7 +101,7 @@ router.get("/edit/:id",(req,res)=>{
     .catch((err)=>{
         res.status(500).json({error: err.message});
     });
-    
+
 })
 
 //delete the whole map
@@ -131,8 +132,8 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
     const point_id = req.params.point_id;
     const owner_id =req.session.userId;
 
-    mapQueries.updatePoint(   
-        owner_id,   
+    mapQueries.updatePoint(
+        owner_id,
         lat,
         longt,
         title,
@@ -142,7 +143,7 @@ router.post("/edit/:map_id/:point_id",(req,res)=>{
         price_range,
         point_id)
         .then(()=>{
-            
+
             res.redirect('/maps/'+req.params.map_id);})
         .catch((err)=>{
             res.status(500).json({ error: err.message });
@@ -195,7 +196,23 @@ router.post("/",(req,res)=>{
     .catch((err)=>{
         res.status(500).json({ error: err.message });
     })
-    
+
+})
+
+//add map to favourites
+router.post("/fav/:map_id", (req, res) => {
+  const user_id = req.session.userId;
+  console.log(req.session);
+  const map_id = req.params.map_id;
+  favQueries.addToFavourites(
+    user_id,
+    map_id
+  ).then(() => {
+    res.redirect("/maps")
+  })
+  .catch((err) => {
+    res.status(500).json({ error: err.message });
+  })
 })
 
   module.exports = router;
