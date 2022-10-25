@@ -24,7 +24,6 @@
         <thead>
           <tr>
             <th scope="col">Map</th>
-            <th scope="col">Map Link</th>
             <th scope="col">View</th>
           </tr>
         </thead>
@@ -33,7 +32,6 @@
           <% for( let map in maps) { %>
             <tr>
                 <td><%= maps[map].title %>  </td>
-                <td><a href=""><%= maps[map].map_url %></a> </td>
                 <td><a href="/maps/<%= maps[map].id %>">view</a></td>
             </tr>
 

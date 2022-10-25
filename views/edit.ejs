@@ -13,14 +13,16 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="/styles/layout.css" />
     <title>Create and Edit</title>
 </head>
 
-<%- include('partials/_header')  %> 
+<%- include('partials/_header')  %>
 <body>
+  <main style="margin: 1em;">
   <h1>Edit</h1>
   <form class="form-inline" action="/maps/edit/<%=point.map_id %>/<%=point.id %> " method="post">
-    <div class="form-group mb-2">
+    <div class="create-new-point">
         <label for="lat">Latitude: </label>
         <input type="text" name="lat" value="<%= point.lat %>">
         <label for="longt">Longtitude: </label>
@@ -38,6 +40,7 @@
         <button type="submit" class="btn btn-primary"> Submit</button>
     </div>
   </form>
+</main>
    <!-- Bootstrap JS -->
    <script
    src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

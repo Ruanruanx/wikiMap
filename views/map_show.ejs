@@ -24,38 +24,37 @@
 <%- include('partials/_header') %>
 
   <body>
-    <div class="card text-center">
-      <div class="card-header"></div>
+
       <div class="card-body">
         <h5 class="card-title">
           <%= map[0].title %>
         </h5>
         <div>
-          <%= map[0].map_url %> 
+
         </div>
         <div id='map'></div>
-        <a href="/maps/point/new/<%=map_id %>">        
+        <a class="new-point-btn"href="/maps/point/new/<%=map_id %>">
           <button type="submit" class="btn btn-primary">Add a new point</button>
         </a>
-        <div>
+        <div class="all-points">
           <% for( let point of map ) { %>
-            <div>User:<%= point.user %>
-            </div>
-            <div>Description: <%= point.description %>
-            </div>
-            <div> <img src="<%= point.image_url %>"> </div>
-            <form action="/maps/edit/<%= point.id %>" method="get">
-              <input type="SUBMIT" value="Edit">
-            </form>
-            <div>
-              <form method="POST" action="/maps/<%=point.map_id%> /<%=point.id%>/delete">
-                <button type="submit" class="btn btn-primary">Delete this point</button>
-              </form>
-            </div>
+            <div class="individual-points">
+              <div>User:<%= point.user %></div>
+              <div>Description: <%= point.description %></div>
+              <div> <img class="mapview-image"src="<%= point.image_url %>"> </div>
 
-            <% } %>
-        </div>
+              <div class="edit-delete">
+                <form action="/maps/edit/<%= point.id %>" method="get">
+                  <input type="SUBMIT" class="btn btn-warning" value="Edit">
+                </form>
+                <form method="POST" action="/maps/<%=point.map_id%> /<%=point.id%>/delete">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </div>
 
+              </div>
+              <% } %>
+            </div>
       </div>
       <div class="card-footer text-muted"></div>
     </div>

@@ -24,8 +24,8 @@ VALUES
 )
 
 VALUES(2,'Best Trails','map link1'),
-(1,'Best bars','map link2'),
-(2,'Best lakes','map link3');
+(1,'Bars Downtown','map link2'),
+(2,'Lakes','map link3');
 
 
 INSERT INTO

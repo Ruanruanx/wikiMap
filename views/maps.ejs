@@ -19,7 +19,7 @@
         <thead>
           <tr>
             <th scope="col">Map</th>
-            <th scope="col">Map Link</th>
+
             <th scope="col">View</th>
             <th scope="col">Add to Favourites</th>
             <th scope="col">Delete</th>
@@ -32,18 +32,18 @@
               <td>
                 <%= maps[map].title %>
               </td>
-              <td><a href="">
-                  <%= maps[map].map_url %>
-                </a> </td>
+
               <td><a href="/maps/<%= maps[map].id %>">View</a></td>
               <td>
-                <form method="POST" action="/maps/fav/<%= maps[map].id %>"><button type="submit">Add</button></form>
+                <form method="POST" action="/maps/fav/<%= maps[map].id %>">
+                  <button class="btn btn-primary" type="submit">Add</button>
+                </form>
               </td>
-                <td>
-                  <form method="POST" action="/maps/<%= maps[map].id %>/delete">
-                    <button type="submit" class="btn btn-primary">Delete</button>
-                  </form>
-                </td>
+              <td>
+                <form method="POST" action="/maps/<%= maps[map].id %>/delete">
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+              </td>
             </tr>
             <% } %>
         </tbody>
@@ -54,7 +54,6 @@
         <thead>
           <tr>
             <th scope="col">Map</th>
-            <th scope="col">Map Link</th>
             <th scope="col">View</th>
           </tr>
         </thead>
@@ -64,12 +63,8 @@
               <td>
                 <%= fav[map].title %>
               </td>
-              <td><a href="">
-                  <%= fav[map].map_url %>
-                </a> </td>
               <td><a href="/maps/<%= fav[map].id %>">view</a></td>
             </tr>
-
             <% } %>
         </tbody>
       </table>
